@@ -1,0 +1,36 @@
+Subtasks:
+I. Setup:
+1. Download Virtual machine with installed Oracle DB system from https://www.oracle.com/database/technologies/databaseappdev-vm.html - Done on 02.06.2023!
+2. Download VirtualBox for Windows from https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html - Done on 02.06.2023!
+3. Install VirtualBox on working machine. - Done on 02.06.2023!
+4. Import Oracle Database 23c Free - Developer Release VirtualBox Appliance (point 1) into VirtualBox (point 2) - Done on 02.06.2023!
+
+II. Development
+1. Add creation_date and update_date columns to all tables in HR schema. - Done on 02.06.2023! (II_1_Scripts.txt)
+2. Fill in creation_date values from December, 2022. Every table should have 5 separate date values for their records. - Done on 02.06.2023! (II_2_Scripts.txt)
+3. Create a trigger for each table - on insert: if creation_date != sysdate then creation_date := sysdate;
+   On update: update_date := sysdate; - Done on 05.06.2023! (II_3_Scripts.txt)
+4. Working on tasks 2.4 and 2.5:
+   Create a package export_hr with public procedure start_daily_export with 2 input parameters:
+   p_date_export of date datatype with defaul value of sysdate and p_is_fullexport with of number datatype with default value of 0.
+   
+   When starting start_daily_export procedure with p_is_fullexport = 1:
+   - The structure of all HR tables should be exported to files
+   (a file for each table with name table_nameoftable_dateofexport(.txt/.sql) or other file format).
+   - All data for each table to be exported into a separate file per table with name:
+   data_nameoftable_dateofexport with file format of my choosing.
+   
+   When starting start_daily_export procedure with p_is_fullexport = 0:
+   - Export the data of the tables in HR which are "newer" then the last exported records or old records with changes in them.
+   Again, a single file per table with name data_nameoftable_dateofexport with file format of my choosing.
+   
+   Reports:
+   06.06-09.06.2023 - Setting up necessary privillege changes, working on a package structure for export_hr and export_table_structure procedure. - II_4_1_Scripts.txt
+   Creating logging tables for exported records and a couple of procedures for data export and logging for the REGIONS and COUNTRIES tables. - II_4_2_Scripts.txt
+   12.06-16.06.2023 - Clearing errors. Testing procedure prototypes for file generation. Adding other procedural logic for file exports.
+						Package core finished on 16.06.2023 - II_4_3_Scripts.txt
+   19.06-22.06.2023 - Establish a Virtual machine with PostgreSQL on it and do a couple of transfers (of full and partial exports). Implement fixes on discovered issues.
+						- Link used: https://www.cherryservers.com/blog/how-to-install-and-setup-postgresql-server-on-ubuntu-20-04 ; GUI: DBeaver;
+						- On 20.06.2023 first file transfer of full export is successful.
+						- On 22.06.2023 partial file export transfer is successful. - II_4_4_Scripts.txt
+   22.06-27.06.2023	- Working on a procedure for automated SQL file execution on PostgreSQL. - II_4_5_Scripts.txt
